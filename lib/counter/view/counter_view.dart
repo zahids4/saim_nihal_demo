@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,23 +45,78 @@ class CounterView extends StatelessWidget {
   }
 }
 
+class Plan {
+  final double price;
+  final String pricePerTerm;
+  final String title;
+
+  Plan({this.price, this.pricePerTerm, this.title});
+}
+
 class SeeAllPlansScreen extends StatelessWidget {
+  final List<Plan> plans = <Plan>[
+    Plan(price: 5.99, pricePerTerm: '\$5.99/month', title: '1 month'),
+    Plan(price: 39.99, pricePerTerm: '\$39.99/6 months', title: '6 months'),
+    Plan(price: 55.99, pricePerTerm: '\$55.99/year', title: '1 year')
+  ];
+
+  Plan getPlan({int index}) {
+    return plans[index];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Premium Plans')),
-      body: Center(
-        child: FlatButton(
-          child: Text('Pop!'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+        child: Center(
+          child: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: plans.length,
+            itemBuilder: (BuildContext context, int index) {
+              final plan = getPlan(index: index);
+
+              return ListTile(
+                title: Text(plan.title),
+                subtitle: Text(plan.pricePerTerm),
+                tileColor: Colors.lightBlue,
+                hoverColor: Colors.blueGrey,
+                onTap: () => {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                              "Do you want to purchase this plan for ${plan.price}"),
+                          content:
+                              Text("You will be subscribed for ${plan.title}"),
+                          actions: [
+                            FlatButton(
+                              child: Text("OK"),
+                              onPressed: () => {Navigator.of(context).pop()},
+                            ),
+                            FlatButton(
+                              child: Text("Cancel"),
+                              onPressed: () => {Navigator.of(context).pop()},
+                            ),
+                          ],
+                        );
+                        ;
+                      })
+                },
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          ),
         ),
       ),
     );
   }
 }
 
+///https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
 class SeeAllPlansButton extends StatelessWidget {
   const SeeAllPlansButton({Key key, @required this.buttonTitle})
       : super(key: key);
