@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_counter/models/plan.dart';
 
 class SeeAllPlansScreen extends StatelessWidget {
-  final List<Plan> plans = <Plan>[
-    Plan(price: 5.99, pricePerTerm: '\$5.99/month', title: '1 month'),
-    Plan(price: 39.99, pricePerTerm: '\$39.99/6 months', title: '6 months'),
-    Plan(price: 55.99, pricePerTerm: '\$55.99/year', title: '1 year')
-  ];
+  const SeeAllPlansScreen({Key key, @required this.plans}) : super(key: key);
+  final List<Plan> plans;
 
   Plan getPlan({int index}) {
     return plans[index];
@@ -50,7 +47,6 @@ class SeeAllPlansScreen extends StatelessWidget {
                             ),
                           ],
                         );
-                        ;
                       })
                 },
               );

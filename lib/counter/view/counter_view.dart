@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_counter/components.dart';
 import 'package:flutter_counter/counter/view/subscription_counter.dart';
 
-import '../counter.dart';
-
 /// {@template counter_view}
 /// A [StatelessWidget] which reacts to the provided
 /// [CounterCubit] state and notifies it in response to user input.
