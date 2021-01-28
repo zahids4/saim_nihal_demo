@@ -15,8 +15,12 @@ class SubscriptionCounter extends StatelessWidget {
     return BlocBuilder<CounterCubit, int>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text('$state' + ' $subsText', style: textTheme.headline2),
+          padding: const EdgeInsets.all(10.0),
+          child: Text('$state' + ' $subsText',
+              style: TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35)),
         );
       },
     );
